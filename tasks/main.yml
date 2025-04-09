@@ -1,2 +1,17 @@
 ---
 # tasks file for ansible-role-ganesha-krb5
+
+# - name: Install package
+#   yum:
+#     name: nfs-ganesha
+#     state: installed
+
+- name: Template nfs-ganesha config
+  ansible.builtin.template:
+    src: ganesha.conf.j2
+    dest: /etc/ganesha/ganesha.conf
+    owner: root
+    group: root
+    mode: "0644"
+    backup: true
+    # notify: Restart nfs-ganesha

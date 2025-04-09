@@ -1,2 +1,46 @@
 ---
 # defaults file for ansible-role-ganesha-krb5
+
+# NFS_CORE_PARAM {}
+ganesha_nfs_core_nfs_port: 2049
+ganesha_nfs_core_nfs_protocols: 4
+
+# NFS_KRB5 {}
+ganesha_nfs_krb5_principalname: nfs
+ganesha_nfs_krb5_active_krb5: "true"
+
+# EXPORTS {}
+ganesha_exports:
+  - export_id: 1
+    path: /export/ganesha
+    pseudo: /ganesha
+    access_type: RW
+    squash: root_squash
+    disable_acl: "true"
+    # NOTE: "Protocols" is not set here, ganesha_nfs_core_nfs_protocols is used
+    # instead
+    transports: tcp
+    sectype: krb5
+    manage_gids: "true"
+
+    clients: []
+    # Example of clients:
+    # clients:
+    #   - 192.168.0.0/16
+    #   - 10.0.0.0/8
+
+ganesha_nfsv4_allow_numeric_owners: "true"
+ganesha_nfsv4_only_numeric_owners: "true"
+ganesha_nfsv4_usegetpwnam: "true"
+
+ganesha_directory_services_idmapped_user_time_validity: 600
+ganesha_directory_services_idmapped_group_time_validity: 600
+ganesha_directory_services_domainname: EXAMPLE.COM
+ganesha_directory_services_idmapping_active: "true"
+
+ganesha_log_default_log_level: INFO
+ganesha_log_components: []
+# Example of per-component logging:
+# ganesha_log_components:
+#   - IDMAPPER: FULL_DEBUG
+#   - FSAL: WARN

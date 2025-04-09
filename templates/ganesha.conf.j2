@@ -1,0 +1,74 @@
+# {{ ansible_managed }}
+NFS_CORE_PARAM
+{
+    clustered = false;
+    enable_nlm = false;
+    enable_rquota = true;
+    nfs_port = {{ ganesha_nfs_core_nfs_port }};
+    nfs_protocols = {{ ganesha_nfs_core_nfs_protocols }};
+}
+
+NFS_KRB5
+{
+    PrincipalName = {{ ganesha_nfs_krb5_principalname }};
+    KeytabPath = /etc/krb5.keytab;
+    Active_krb5 = {{ ganesha_nfs_krb5_active_krb5 }};
+}
+
+{% for export in ganesha_exports %}
+EXPORT
+{
+    Export_Id = {{ export.export_id }};
+    Path = {{ export.path }};
+    Pseudo = {{ export.pseudo }};
+    FSAL {
+        Name = VFS;
+    }
+    Access_type = {{ export.access_type }};
+    Squash = {{ export.squash }};
+    Disable_ACL = {{ export.disable_acl }};
+    Protocols = {{ ganesha_nfs_core_nfs_protocols }}
+    Transports = {{ export.transports }};
+    SecType = {{ export.sectype }};
+    # replace groups with ones from AD, bypasses the 16 group limit
+    manage_gids = {{ export.manage_gids }};
+
+    {% if export.clients is defined and export.clients|length > 0 %}
+        {% for client in export.clients %}
+    CLIENT {
+      Clients = {{ client }};
+    }
+        {% endfor %}
+    {% endif %}
+}
+{% endfor %}
+
+NFSV4
+{
+    allow_numeric_owners = {{ ganesha_nfsv4_allow_numeric_owners }};
+    only_numeric_owners = {{ ganesha_nfsv4_only_numeric_owners }};
+    # Use PAM instead of nfsidmap, prevents a warning with machine objects
+    usegetpwnam = {{ ganesha_nfsv4_usegetpwnam }};
+}
+
+DIRECTORY_SERVICES
+{
+    idmapped_user_time_validity = {{ ganesha_directory_services_idmapped_user_time_validity }};
+    idmapped_group_time_validity = {{ ganesha_directory_services_idmapped_group_time_validity }};
+    domainname = {{ ganesha_directory_services_domainname }};
+    idmapping_active = {{ ganesha_directory_services_idmapping_active }};
+}
+
+LOG
+{
+    Default_Log_Level = {{ ganesha_log_default_log_level }};
+    {% if ganesha_log_components is defined and ganesha_log_components|length > 0 %}
+    COMPONENTS {
+        {% for component in ganesha_log_components %}
+            {% for key, value in component.items() %}
+        {{ key }}: {{ value }};
+            {% endfor %}
+        {% endfor %}
+    }
+    {% endif %}
+}
