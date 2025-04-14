@@ -1,11 +1,27 @@
 ---
 # tasks file for ansible-role-ganesha-krb5
 
-# - name: Install package
-#   yum:
-#     name: nfs-ganesha
-#     state: installed
+- name: Add repo
+  when: ganesha_add_repo
+  ansible.builtin.yum_repository:
+    name: ganesha_repo
+    description: Custom ganesha repo
+    baseurl: "{{ ganesha_repo_baseurl }}"
+    file: ganesha
+    gpgcheck: false
+- name: Install packages
+  when: ganesha_install_packages
+  ansible.builtin.dnf:
+    name: "{{ ganesha_packages }}"
+    state: installed
 
+- name: Create config dir
+  ansible.builtin.file:
+    state: directory
+    path: /etc/ganesha
+    owner: root
+    group: root
+    mode: "0755"
 - name: Template nfs-ganesha config
   ansible.builtin.template:
     src: ganesha.conf.j2
@@ -14,4 +30,5 @@
     group: root
     mode: "0644"
     backup: true
+    lstrip_blocks: true
     # notify: Restart nfs-ganesha
