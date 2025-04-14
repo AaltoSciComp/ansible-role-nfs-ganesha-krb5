@@ -1,0 +1,40 @@
+---
+- name: Verify
+  hosts: all
+  gather_facts: false
+  tasks:
+    - name: Check if ganesha.conf exists
+      ansible.builtin.stat:
+        path: /etc/ganesha/ganesha.conf
+      register: ganesha_conf_stat
+
+    - name: Assert ganesha.conf exists
+      ansible.builtin.assert:
+        that:
+          - ganesha_conf_stat.stat.exists
+          - ganesha_conf_stat.stat.isreg
+          - ganesha_conf_stat.stat.mode == "0644"
+          - ganesha_conf_stat.stat.uid == 0
+          - ganesha_conf_stat.stat.gid == 0
+
+    - name: Validate ganesha.conf content
+      ansible.builtin.slurp:
+        src: /etc/ganesha/ganesha.conf
+      register: ganesha_conf_encoded
+
+    - name: Parse config content
+      ansible.builtin.set_fact:
+        ganesha_conf_content:
+          "{{ ganesha_conf_encoded['content'] | b64decode }}"
+
+    # Uncomment to output the file content for manual checking
+    # - name: Display config
+    #   ansible.builtin.debug:
+    #     msg: "{{ ganesha_conf_content.split('\n') }}"
+
+    - name: Assert ganesha.conf contains expected content
+      ansible.builtin.assert:
+        that:
+          - "'NFS_CORE_PARAM' in ganesha_conf_content"
+          - "'NFS_KRB5' in ganesha_conf_content"
+          - "'EXPORT' in ganesha_conf_content"

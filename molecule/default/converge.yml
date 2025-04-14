@@ -3,6 +3,29 @@
   hosts: all
   gather_facts: false
   tasks:
-    - name: Replace this task with one that validates your content
-      ansible.builtin.debug:
-        msg: "This is the effective test"
+    - name: Include role
+      ansible.builtin.include_role:
+        name: aaltoscicomp.ansible_role_ganesha_krb5
+      vars:
+        ganesha_add_repo: true
+        # Requires a custom repo with Ganesha RPMs, cannot test easily
+        # ganesha_install_packages: true
+        ganesha_log_components:
+          - IDMAPPER: FULL_DEBUG
+          - FSAL: WARN
+        # NOTE: Default config from defaults/main.yml, except for the clients
+        # block
+        ganesha_exports:
+          - export_id: 1
+            path: /export/ganesha
+            pseudo: /ganesha
+            access_type: RW
+            squash: root_squash
+            disable_acl: "true"
+            transports: tcp
+            sectype: krb5
+            manage_gids: "true"
+
+            clients:
+              - 192.168.0.0/16
+              - 10.0.0.0/8
