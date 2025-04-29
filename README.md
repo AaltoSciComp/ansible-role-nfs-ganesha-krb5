@@ -1,4 +1,4 @@
-ansible-role-ganesha-krb5
+ansible-role-nfs-ganesha-krb5
 =========
 
 A role to set up [NFS-Ganesha](https://github.com/nfs-ganesha/nfs-ganesha/) on
@@ -27,7 +27,7 @@ Including an example of how to use your role (for instance, with variables passe
 ```yaml
 - hosts: servers
   roles:
-  - { role: ansible-role-ganesha-krb5 }
+  - { role: ansible-role-nfs-ganesha-krb5 }
 ```
 
 License

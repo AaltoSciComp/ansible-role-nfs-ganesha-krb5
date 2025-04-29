@@ -1,5 +1,5 @@
 ---
-# defaults file for ansible-role-ganesha-krb5
+# defaults file for ansible-role-nfs-ganesha-krb5
 
 ganesha_add_repo: false
 ganesha_repo_baseurl: http://127.0.0.1/ganesha

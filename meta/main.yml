@@ -1,6 +1,6 @@
 ---
 galaxy_info:
-  role_name: ansible_role_ganesha_krb5
+  role_name: ansible_role_nfs_ganesha_krb5
   namespace: aaltoscicomp
   author: Sami Laine
   description: A role to set up NFS-Ganesha on RHEL9 with Kerberos

@@ -5,7 +5,7 @@
   tasks:
     - name: Include role
       ansible.builtin.include_role:
-        name: aaltoscicomp.ansible_role_ganesha_krb5
+        name: aaltoscicomp.ansible_role_nfs_ganesha_krb5
       vars:
         ganesha_add_repo: true
         # Requires a custom repo with Ganesha RPMs, cannot test easily

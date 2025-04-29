@@ -1,5 +1,5 @@
 ---
-# tasks file for ansible-role-ganesha-krb5
+# tasks file for ansible-role-nfs-ganesha-krb5
 
 - name: Add repo
   when: ganesha_add_repo
