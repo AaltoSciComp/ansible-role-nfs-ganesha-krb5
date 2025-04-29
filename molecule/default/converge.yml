@@ -10,7 +10,7 @@
         ganesha_add_repo: true
         # Requires a custom repo with Ganesha RPMs, cannot test easily
         # ganesha_install_packages: true
-        ganesha_log_components:
+        ganesha_log__components:
           - IDMAPPER: FULL_DEBUG
           - FSAL: WARN
         # NOTE: Default config from defaults/main.yml, except for the clients

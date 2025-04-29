@@ -1,6 +1,7 @@
 ---
 # defaults file for ansible-role-nfs-ganesha-krb5
 
+### Generic variables ###
 ganesha_add_repo: false
 ganesha_repo_baseurl: http://127.0.0.1/ganesha
 ganesha_install_packages: false
@@ -10,15 +11,18 @@ ganesha_packages:
   - nfs-ganesha-utils
   - dbus-tools
 
-# NFS_CORE_PARAM {}
-ganesha_nfs_core_nfs_port: 2049
-ganesha_nfs_core_nfs_protocols: 4
+### Config values ###
+## NFS_CORE_PARAM {}
+ganesha_nfs_core__nfs_port: 2049
+# NOTE: This applies also to the "Protocols" config in the EXPORTS block
+ganesha_nfs_core__nfs_protocols: 4
 
-# NFS_KRB5 {}
-ganesha_nfs_krb5_principalname: nfs
-ganesha_nfs_krb5_active_krb5: "true"
+## NFS_KRB5 {}
+ganesha_nfs_krb5__principalname: nfs
+# The value needs to be quoted so that it isn't converted to "True"
+ganesha_nfs_krb5__active_krb5: "true"
 
-# EXPORTS {}
+## EXPORTS {}
 ganesha_exports:
   - export_id: 1
     path: /export/ganesha
@@ -38,18 +42,22 @@ ganesha_exports:
     #   - 192.168.0.0/16
     #   - 10.0.0.0/8
 
-ganesha_nfsv4_allow_numeric_owners: "true"
-ganesha_nfsv4_only_numeric_owners: "true"
-ganesha_nfsv4_usegetpwnam: "true"
 
-ganesha_directory_services_idmapped_user_time_validity: 600
-ganesha_directory_services_idmapped_group_time_validity: 600
-ganesha_directory_services_domainname: EXAMPLE.COM
-ganesha_directory_services_idmapping_active: "true"
+## NFSV4 {}
+ganesha_nfsv4__allow_numeric_owners: "true"
+ganesha_nfsv4__only_numeric_owners: "true"
+ganesha_nfsv4__usegetpwnam: "true"
 
-ganesha_log_default_log_level: INFO
-ganesha_log_components: []
+## DIRECTORY_SERVICES {}
+ganesha_directory_services__idmapped_user_time_validity: 600
+ganesha_directory_services__idmapped_group_time_validity: 600
+ganesha_directory_services__domainname: EXAMPLE.COM
+ganesha_directory_services__idmapping_active: "true"
+
+## LOG {}
+ganesha_log__default_log_level: INFO
+ganesha_log__components: []
 # Example of per-component logging:
-# ganesha_log_components:
+# ganesha_log__components:
 #   - IDMAPPER: FULL_DEBUG
 #   - FSAL: WARN
