@@ -32,3 +32,15 @@
     backup: true
     lstrip_blocks: true
   notify: Reload nfs-ganesha
+- name: Disable rpc-rquotad
+  block:
+    - name: Populate service facts
+      ansible.builtin.service_facts:
+    - name: Disable and stop rpc-rquotad
+      ansible.builtin.service:
+        name: rpc-rquotad
+        state: stopped
+        enabled: false
+      when: |
+        ansible_facts['services']['rpc-rquotad.service']['status']
+        | default('not-found') != 'not-found'
