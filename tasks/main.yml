@@ -31,4 +31,4 @@
     mode: "0644"
     backup: true
     lstrip_blocks: true
-    # notify: Restart nfs-ganesha
+  notify: Reload nfs-ganesha

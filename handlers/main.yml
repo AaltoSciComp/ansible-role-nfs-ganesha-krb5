@@ -1,2 +1,13 @@
 ---
 # handlers file for ansible-role-nfs-ganesha-krb5
+- name: Populate service facts
+  ansible.builtin.service_facts:
+  listen: Reload nfs-ganesha
+- name: Reload nfs-ganesha if running
+  ansible.builtin.service:
+    name: nfs-ganesha
+    state: reloaded
+  listen: "Reload nfs-ganesha"
+  when: |
+    "services" in ansible_facts
+    and ansible_facts.services["nfs-ganesha.service"]["state"] == "running"
