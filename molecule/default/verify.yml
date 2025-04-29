@@ -38,3 +38,8 @@
           - "'NFS_CORE_PARAM' in ganesha_conf_content"
           - "'NFS_KRB5' in ganesha_conf_content"
           - "'EXPORT' in ganesha_conf_content"
+          - "'manage_gids = true' in ganesha_conf_content"
+          # Test EXPORT block default value
+          - "'Squash = root_squash' in ganesha_conf_content"
+          # Test CLIENT block manual value
+          - "'Clients = 192.168.0.0/16' in ganesha_conf_content"

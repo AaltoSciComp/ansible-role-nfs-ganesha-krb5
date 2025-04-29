@@ -27,14 +27,14 @@ ganesha_exports:
   - export_id: 1
     path: /export/ganesha
     pseudo: /ganesha
-    access_type: RW
-    squash: root_squash
-    disable_acl: "true"
-    # NOTE: "Protocols" is not set here, ganesha_nfs_core_nfs_protocols is used
-    # instead
-    transports: tcp
-    sectype: krb5
-    manage_gids: "true"
+    # NOTE: the following values can be overwritten here, otherwise the default
+    #       values are used
+    # access_type: RW
+    # squash: root_squash
+    # disable_acl: "true"
+    # transports: tcp
+    # sectype: krb5
+    # manage_gids: "true"
 
     clients: []
     # Example of clients:
@@ -42,6 +42,13 @@ ganesha_exports:
     #   - 192.168.0.0/16
     #   - 10.0.0.0/8
 
+# Default values for the EXPORTS block, can be overwritten per-export
+ganesha_export_default__access_type: RW
+ganesha_export_default__squash: root_squash
+ganesha_export_default__disable_acl: "true"
+ganesha_export_default__transports: tcp
+ganesha_export_default__sectype: krb5
+ganesha_export_default__manage_gids: "true"
 
 ## NFSV4 {}
 ganesha_nfsv4__allow_numeric_owners: "true"

@@ -13,19 +13,10 @@
         ganesha_log__components:
           - IDMAPPER: FULL_DEBUG
           - FSAL: WARN
-        # NOTE: Default config from defaults/main.yml, except for the clients
-        # block
         ganesha_exports:
           - export_id: 1
             path: /export/ganesha
             pseudo: /ganesha
-            access_type: RW
-            squash: root_squash
-            disable_acl: "true"
-            transports: tcp
-            sectype: krb5
-            manage_gids: "true"
-
             clients:
               - 192.168.0.0/16
               - 10.0.0.0/8

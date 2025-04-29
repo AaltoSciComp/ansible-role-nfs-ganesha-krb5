@@ -24,14 +24,14 @@ EXPORT
     FSAL {
         Name = VFS;
     }
-    Access_type = {{ export.access_type }};
-    Squash = {{ export.squash }};
-    Disable_ACL = {{ export.disable_acl }};
+    Access_type = {{ export.access_type | default(ganesha_export_default__access_type) }};
+    Squash = {{ export.squash | default(ganesha_export_default__squash) }};
+    Disable_ACL = {{ export.disable_acl | default(ganesha_export_default__disable_acl) }};
     Protocols = {{ ganesha_nfs_core__nfs_protocols }}
-    Transports = {{ export.transports }};
-    SecType = {{ export.sectype }};
+    Transports = {{ export.transports | default(ganesha_export_default__transports) }};
+    SecType = {{ export.sectype | default(ganesha_export_default__sectype) }};
     # replace groups with ones from AD, bypasses the 16 group limit
-    manage_gids = {{ export.manage_gids }};
+    manage_gids = {{ export.manage_gids | default(ganesha_export_default__manage_gids) }};
 
     {% if export.clients is defined and export.clients|length > 0 %}
         {% for client in export.clients %}
