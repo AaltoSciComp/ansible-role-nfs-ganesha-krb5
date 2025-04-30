@@ -38,11 +38,15 @@ EXPORT
     {{ export.extra | default("") }}
     {{ ganesha_export_default_extra }}
 
-    {% if export.clients is defined and export.clients|length > 0 %}
-        {% for client in export.clients %}
+    {% if export.client is defined and export.client|length > 0 %}
+        {% for client in export.client %}
     CLIENT {
-      Clients = {{ client }};
+            {% for key, value in client.items() %}
+      {{ key }} = {{ value }};
+            {% endfor %}
+                {% if "protocols" not in client.keys() %}
       Protocols = {{ ganesha_nfs_core__nfs_protocols }};
+                {% endif %}
     }
         {% endfor %}
     {% endif %}

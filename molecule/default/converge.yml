@@ -17,9 +17,11 @@
           - export_id: 1
             path: /export/ganesha
             pseudo: /ganesha
-            clients:
-              - 192.168.0.0/16
-              - 10.0.0.0/8
+            client:
+              - clients: 192.168.0.0/16
+              - clients: 10.0.0.0/8
+                sectype: sys
+                protocols: 3
         ganesha_directory_services_extra: >
           Cache_Users_Max_Count = 10
           Cache_User_Groups_Max_Count = 5

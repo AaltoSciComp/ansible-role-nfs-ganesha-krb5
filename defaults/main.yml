@@ -45,11 +45,15 @@ ganesha_exports:
     # manage_gids: "true"
     extra: ""
 
-    clients: []
-    # Example of clients:
-    # clients:
-    #   - 192.168.0.0/16
-    #   - 10.0.0.0/8
+    ## CLIENT {}
+    client: []
+    # Keys and values are directly inserted to the config. Adds Protocols
+    # automatically if not defined.
+    # Example of client:
+    # client:
+    #   - clients: 192.168.0.0/16
+    #   - clients: 10.0.0.0/8
+    #     sectype: sys
 
 # Default values for the EXPORTS block, can be overwritten per-export
 ganesha_export_default__access_type: RW

@@ -42,6 +42,9 @@
           # Test EXPORT block default value
           - "'Squash = root_squash' in ganesha_conf_content"
           # Test CLIENT block manual value
-          - "'Clients = 192.168.0.0/16' in ganesha_conf_content"
+          - "'clients = 192.168.0.0/16' in ganesha_conf_content"
+          - "'Protocols = 4' in ganesha_conf_content"
+          - "'protocols = 3' in ganesha_conf_content"
+          - "'sectype = sys' in ganesha_conf_content"
           # Test extra block
           - "'Cache_Users_Max_Count' in ganesha_conf_content"
