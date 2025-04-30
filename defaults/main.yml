@@ -10,6 +10,8 @@ ganesha_packages:
   - nfs-ganesha-vfs
   - nfs-ganesha-utils
   - dbus-tools
+  - gmonitoring
+  - libntirpc
 
 ### Config values ###
 # Free-form data appended at the end of the config
