@@ -7,6 +7,7 @@ NFS_CORE_PARAM
     nfs_port = {{ ganesha_nfs_core__nfs_port }};
     nfs_protocols = {{ ganesha_nfs_core__nfs_protocols }};
     enable_fullv4_stats = {{ ganesha_nfs_core__enable_fullv4_stats }};
+    {{ ganesha_nfs_core_extra }}
 }
 
 NFS_KRB5
@@ -14,6 +15,7 @@ NFS_KRB5
     PrincipalName = {{ ganesha_nfs_krb5__principalname }};
     KeytabPath = /etc/krb5.keytab;
     Active_krb5 = {{ ganesha_nfs_krb5__active_krb5 }};
+    {{ ganesha_nfs_krb5_extra }}
 }
 
 {% for export in ganesha_exports %}
@@ -33,6 +35,8 @@ EXPORT
     SecType = {{ export.sectype | default(ganesha_export_default__sectype) }};
     # replace groups with ones from AD, bypasses the 16 group limit
     manage_gids = {{ export.manage_gids | default(ganesha_export_default__manage_gids) }};
+    {{ export.extra | default("") }}
+    {{ ganesha_export_default_extra }}
 
     {% if export.clients is defined and export.clients|length > 0 %}
         {% for client in export.clients %}
@@ -50,6 +54,7 @@ NFSV4
     only_numeric_owners = {{ ganesha_nfsv4__only_numeric_owners }};
     # Use PAM instead of nfsidmap, prevents a warning with machine objects
     usegetpwnam = {{ ganesha_nfsv4__usegetpwnam }};
+    {{ ganesha_nfsv4_extra }}
 }
 
 DIRECTORY_SERVICES
@@ -58,6 +63,7 @@ DIRECTORY_SERVICES
     idmapped_group_time_validity = {{ ganesha_directory_services__idmapped_group_time_validity }};
     domainname = {{ ganesha_directory_services__domainname }};
     idmapping_active = {{ ganesha_directory_services__idmapping_active }};
+    {{ ganesha_directory_services_extra }}
 }
 
 LOG
@@ -72,4 +78,7 @@ LOG
         {% endfor %}
     }
     {% endif %}
+    {{ ganesha_log_extra }}
 }
+
+{{ ganesha_config_extra }}

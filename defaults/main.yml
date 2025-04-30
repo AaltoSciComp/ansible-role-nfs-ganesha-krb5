@@ -12,17 +12,21 @@ ganesha_packages:
   - dbus-tools
 
 ### Config values ###
+# Free-form data appended at the end of the config
+ganesha_config_extra: ""
 ## NFS_CORE_PARAM {}
 ganesha_nfs_core__enable_rquota: "false"
 ganesha_nfs_core__nfs_port: 2049
 # NOTE: This applies also to the "Protocols" config in the EXPORTS block
 ganesha_nfs_core__nfs_protocols: 4
 ganesha_nfs_core__enable_fullv4_stats: "true"
+ganesha_nfs_core_extra: ""
 
 ## NFS_KRB5 {}
 ganesha_nfs_krb5__principalname: nfs
 # The value needs to be quoted so that it isn't converted to "True"
 ganesha_nfs_krb5__active_krb5: "true"
+ganesha_nfs_krb5_extra: ""
 
 ## EXPORTS {}
 ganesha_exports:
@@ -37,6 +41,7 @@ ganesha_exports:
     # transports: tcp
     # sectype: krb5
     # manage_gids: "true"
+    extra: ""
 
     clients: []
     # Example of clients:
@@ -51,17 +56,20 @@ ganesha_export_default__disable_acl: "true"
 ganesha_export_default__transports: tcp
 ganesha_export_default__sectype: krb5
 ganesha_export_default__manage_gids: "true"
+ganesha_export_default_extra: ""
 
 ## NFSV4 {}
 ganesha_nfsv4__allow_numeric_owners: "true"
 ganesha_nfsv4__only_numeric_owners: "true"
 ganesha_nfsv4__usegetpwnam: "true"
+ganesha_nfsv4_extra: ""
 
 ## DIRECTORY_SERVICES {}
 ganesha_directory_services__idmapped_user_time_validity: 600
 ganesha_directory_services__idmapped_group_time_validity: 600
 ganesha_directory_services__domainname: EXAMPLE.COM
 ganesha_directory_services__idmapping_active: "true"
+ganesha_directory_services_extra: ""
 
 ## LOG {}
 ganesha_log__default_log_level: INFO
@@ -70,3 +78,4 @@ ganesha_log__components: []
 # ganesha_log__components:
 #   - IDMAPPER: FULL_DEBUG
 #   - FSAL: WARN
+ganesha_log_extra: ""

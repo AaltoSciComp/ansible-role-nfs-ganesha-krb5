@@ -43,3 +43,5 @@
           - "'Squash = root_squash' in ganesha_conf_content"
           # Test CLIENT block manual value
           - "'Clients = 192.168.0.0/16' in ganesha_conf_content"
+          # Test extra block
+          - "'Cache_Users_Max_Count' in ganesha_conf_content"
