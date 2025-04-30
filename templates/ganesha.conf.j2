@@ -42,6 +42,7 @@ EXPORT
         {% for client in export.clients %}
     CLIENT {
       Clients = {{ client }};
+      Protocols = {{ ganesha_nfs_core__nfs_protocols }};
     }
         {% endfor %}
     {% endif %}
