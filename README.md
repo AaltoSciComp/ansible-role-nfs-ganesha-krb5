@@ -22,6 +22,8 @@ Role Variables
   required Ganesha packages.
 - **`ganesha_packages`**: (Default: List of packages) List of packages to
   install for Ganesha.
+- **`ganesha_mask_kernel_nfs`**: (Default: `true`) Mask (prevent from starting)
+  the kernel NFS server.
 
 ### Config Values
 

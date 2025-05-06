@@ -44,3 +44,12 @@
       when: |
         ansible_facts['services']['rpc-rquotad.service']['status']
         | default('not-found') != 'not-found'
+
+- name: Mask kernel nfs-server
+  ansible.builtin.systemd_service:
+    name: nfs-server
+    masked: true
+  when: ganesha_mask_kernel_nfs
+  # The container image used by molecule doesn't have a functioning systemd ->
+  # skipping this task to prevent the test from crashing
+  tags: notest

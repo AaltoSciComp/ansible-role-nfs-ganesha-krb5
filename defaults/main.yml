@@ -12,6 +12,7 @@ ganesha_packages:
   - dbus-tools
   - gmonitoring
   - libntirpc
+ganesha_mask_kernel_nfs: true
 
 ### Config values ###
 # Free-form data appended at the end of the config
